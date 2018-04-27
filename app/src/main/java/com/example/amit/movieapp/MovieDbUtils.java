@@ -21,7 +21,6 @@ public class MovieDbUtils {
     final static String FINAL_POPULAR_URL = BASE_URL + POPULAR_URL + API_KEY_URL + API_KEY;
     final static String FINAL_HIGHEST_RATED_URL = BASE_URL + HIGHEST_RATED_URL + API_KEY_URL + API_KEY;
 
-    // popular = http://api.themoviedb.org/3/movie/popular?api_key=[YOUR_API_KEY]
     public static URL buildPopularURL() {
         Uri builtUri = Uri.parse(FINAL_POPULAR_URL).buildUpon()
                 .build();
