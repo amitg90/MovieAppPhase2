@@ -33,7 +33,7 @@ public class MovieDetail extends Activity {
         // Capture the layout's TextView and set the string as its text
         TextView textView;
         textView = findViewById(R.id.path_tv);
-        textView.setText(movieInfo.path);
+        textView.setText(MovieDbUtils.IMAGE_BASE_URL + movieInfo.path);
 
         textView = findViewById(R.id.title_tv);
         textView.setText(movieInfo.title);
@@ -43,5 +43,8 @@ public class MovieDetail extends Activity {
 
         textView = findViewById(R.id.vote_avg_tv);
         textView.setText(movieInfo.vote_average);
+
+        textView = findViewById(R.id.overview_tv);
+        textView.setText(movieInfo.overview);
     }
 }

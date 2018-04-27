@@ -15,8 +15,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 
-public class MovieAsyncTask extends AsyncTask {
+public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
     MovieApp context;
 
     public MovieAsyncTask(MovieApp context) {
@@ -24,8 +25,15 @@ public class MovieAsyncTask extends AsyncTask {
     }
 
     @Override
-    protected Object doInBackground(Object[] objects) {
+    protected void onPostExecute(Void aVoid) {
+        Log.e("MovieAsyncTask!!", "Trigger Adapter");
 
+        // trigger adapter;
+        context.movieAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected Void doInBackground(Void... voids) {
         MovieInfo movieInfo;
         URL url;
         try {
@@ -50,6 +58,7 @@ public class MovieAsyncTask extends AsyncTask {
                     movieInfo.release_date = oneObject.getString("release_date");
                     movieInfo.title = oneObject.getString("title");
                     movieInfo.vote_average = oneObject.getString("vote_average");
+                    movieInfo.overview = oneObject.getString("overview");
                     MovieDB.movieInfoArrayList.add(movieInfo);
 
                     if (i == 0)
@@ -65,16 +74,6 @@ public class MovieAsyncTask extends AsyncTask {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return null;
-
-    }
-
-    @Override
-    protected void onPostExecute(Object o) {
-        Log.e("MovieAsyncTask!!", "Trigger Adapter");
-
-        // trigger adapter;
-        context.movieAdapter.notifyDataSetChanged();
     }
 }

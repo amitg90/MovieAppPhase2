@@ -5,4 +5,5 @@ public class MovieInfo {
     String title;
     String release_date;
     String vote_average;
+    String overview;
 }

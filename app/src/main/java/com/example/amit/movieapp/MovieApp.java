@@ -3,8 +3,6 @@ package com.example.amit.movieapp;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -42,6 +40,7 @@ public class MovieApp extends Activity {
         movieAdapter = new MovieAdapter( this);
         gridView.setAdapter( movieAdapter);
 
+        // set adapter onclick listener to display details of movie
         Spinner spinner = findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -64,7 +63,7 @@ public class MovieApp extends Activity {
         String[] options = getResources().getStringArray(R.array.spinner_list_item_array);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter adapter = new ArrayAdapter(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, options);
 
         // Apply the adapter to the spinner
