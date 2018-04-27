@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MovieApp</string>
+    <array name="spinner_list_item_array">
+        <item>Popularity</item>
+        <item>Highest Rated</item>
+    </array>
+</resources>

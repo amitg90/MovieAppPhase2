@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieDetail">
+
+
+    <TextView
+        android:id="@+id/path_label_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Path Label" />
+
+    <TextView
+        android:id="@+id/path_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/path_label_tv"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="15dp"
+        android:text="Path info" />
+
+    <TextView
+        android:id="@+id/title_label_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_below="@+id/path_tv"
+        android:text="Titile Label" />
+
+    <TextView
+        android:id="@+id/title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="15dp"
+        android:layout_below="@+id/title_label_tv"
+        android:text="Tiltle Info" />
+
+    <TextView
+        android:id="@+id/release_date_label_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/title_tv"
+        android:text="Release Date Label" />
+
+    <TextView
+        android:id="@+id/release_date_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="50dp"
+        android:textSize="15dp"
+        android:layout_below="@+id/release_date_label_tv"
+        android:text="Release Date Info" />
+
+    <TextView
+        android:id="@+id/vote_avg_label_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/release_date_tv"
+        android:text="Vote Avg Label" />
+
+    <TextView
+        android:id="@+id/vote_avg_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        android:layout_marginLeft="50dp"
+        android:layout_below="@+id/vote_avg_label_tv"
+        android:text="Vote Avg Info" />
+</RelativeLayout>
