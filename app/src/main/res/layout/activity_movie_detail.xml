@@ -1,112 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MovieDetail">
 
-    <TextView
-        android:id="@+id/overview_label_tv"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:text="Overview" />
+        android:orientation="horizontal"
+        >
 
-    <TextView
-        android:id="@+id/overview_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="15sp"
-        android:layout_marginLeft="50dp"
-        android:layout_below="@+id/overview_label_tv"
-        android:text="Overview Info" />
+        <TextView
+            android:id="@+id/title_label_tv"
+            android:background="#ffff00"
+            android:gravity="center_horizontal"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:paddingTop="10dp"
+            android:layout_height="40dp" />
 
-    <TextView
-        android:id="@+id/path_label_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:textStyle="bold"
-        android:textSize="20sp"
-        android:layout_below="@+id/overview_tv"
-        android:layout_marginTop="20dp"
-        android:text="Path" />
+        <ImageView
+            android:id="@+id/image_view_label_tv"
+            android:paddingTop="5dp"
+            android:layout_width="180dp"
+            android:layout_height="190dp"
+            android:layout_below="@+id/title_label_tv"
+            />
 
-    <TextView
-        android:id="@+id/path_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/path_label_tv"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="15sp"
-        android:text="Path info" />
+        <TextView
+            android:id="@+id/year_label_tv"
+            android:background="#00ff00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image_view_label_tv"
+            android:layout_below="@+id/title_label_tv"
+            android:layout_marginTop="20dp"
+            android:text="Year" />
 
-    <TextView
-        android:id="@+id/title_label_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_below="@+id/path_tv"
-        android:text="Titile" />
+        <TextView
+            android:id="@+id/minute_label_tv"
+            android:background="#00ff00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/year_label_tv"
+            android:layout_toRightOf="@+id/image_view_label_tv"
+            android:text="Minutes" />
 
-    <TextView
-        android:id="@+id/title_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="15sp"
-        android:layout_below="@+id/title_label_tv"
-        android:text="Tiltle Info" />
+        <TextView
+            android:id="@+id/release_date_label_tv"
+            android:background="#00ff00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/minute_label_tv"
+            android:layout_toRightOf="@+id/image_view_label_tv"
+            android:text="Release Date" />
 
-    <TextView
-        android:id="@+id/release_date_label_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/title_tv"
-        android:text="Release Date" />
+        <Button
+            android:id="@+id/favorite_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/image_view_label_tv"
+            android:layout_below="@+id/release_date_label_tv"
+            android:layout_marginTop="20dp"
+            android:text="Mark as Favorite" />
 
-    <TextView
-        android:id="@+id/release_date_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="50dp"
-        android:textSize="15sp"
-        android:layout_below="@+id/release_date_label_tv"
-        android:text="Release Date Info" />
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:id="@+id/overview_scroll_view"
+            android:layout_below="@+id/image_view_label_tv"
+            android:layout_height="130dp">
+            <TextView
+                android:id="@+id/overview_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textSize="15sp"
+                android:gravity="right | left"
+                android:layout_marginLeft="10dp"
+                android:text="Overview Info" />
+        </ScrollView>
+        <View
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:layout_below="@+id/overview_scroll_view"
+            android:background="?android:attr/listDivider" />
 
-    <TextView
-        android:id="@+id/vote_avg_label_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginLeft="10dp"
-        android:layout_below="@+id/release_date_tv"
-        android:text="Vote Avg" />
+        <TextView
+            android:id="@+id/trailer_label_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            android:layout_marginLeft="10dp"
+            android:layout_below="@+id/divider"
+            android:text="Trailers" />
 
-    <TextView
-        android:id="@+id/vote_avg_tv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textSize="15sp"
-        android:layout_marginLeft="50dp"
-        android:layout_below="@+id/vote_avg_label_tv"
-        android:text="Vote Avg Info" />
-</RelativeLayout>
+
+        <ListView
+            android:id="@+id/youtube_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/trailer_label_tv"
+            />
+
+        <ListView
+            android:id="@+id/review_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/youtube_list_view"
+            />
+
+    </RelativeLayout>
+</ScrollView>

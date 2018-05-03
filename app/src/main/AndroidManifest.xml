@@ -19,6 +19,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".MovieDetail"></activity>
+
+        <provider android:name=".MovieContentProvider"
+            android:authorities="com.example.amit.movieapp.MovieContentProvider"/>
+
     </application>
 
 </manifest>

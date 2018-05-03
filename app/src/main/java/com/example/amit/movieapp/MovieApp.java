@@ -1,18 +1,24 @@
 package com.example.amit.movieapp;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CursorAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 public class MovieApp extends Activity {
-    public MovieAdapter movieAdapter;
+    public MovieAdapter movieAdapter = null;
     public MovieAsyncTask asyncTask;
     public static final String EXTRA_MESSAGE = "com.example.amit.movieapp.MESSAGE";
+    public static Database database = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,10 @@ public class MovieApp extends Activity {
         // create ASYNC tasks to fetch movies and store in some Custom Array
         asyncTask = new MovieAsyncTask(this);
         asyncTask.execute();
+
+        // database init
+        database = new Database(this);
+        database.getReadableDatabase();
 
         // connect adapter to your grid view
         GridView gridView = (GridView) findViewById(R.id.gridView);
@@ -48,8 +58,18 @@ public class MovieApp extends Activity {
                 // depending on what is selected update AsyncTask
                 if (position == 0) {
                     Settings.selection_types = Selection_Types.Selection_Types_Popularity;
-                } else {
+                } else if (position == 1) {
                     Settings.selection_types = Selection_Types.Selection_Types_HighestRated;
+                } else {
+                    Settings.selection_types = Selection_Types.Selection_Types_Favorite;
+
+                    // trigger DB read.
+                    getContentResolver().query(
+                            MovieContentProvider.CONTENT_URI, null, null, null, null);
+
+                    Toast.makeText(getBaseContext(),
+                            "DB Query happened", Toast.LENGTH_LONG).show();
+
                 }
                 asyncTask = new MovieAsyncTask(MovieApp.this);
                 asyncTask.execute();
@@ -70,5 +90,6 @@ public class MovieApp extends Activity {
         if (spinner != null) {
             spinner.setAdapter(adapter);
         }
+
     }
 }

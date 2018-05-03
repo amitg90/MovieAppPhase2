@@ -2,6 +2,7 @@ package com.example.amit.movieapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class MovieAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
+        Log.e("MovieAdapter", "Size:" + MovieDB.movieInfoArrayList.size());
         return MovieDB.movieInfoArrayList.size();
     }
 
@@ -48,6 +50,7 @@ public class MovieAdapter extends BaseAdapter {
 
         if (convertView == null) {
             // get layout from grid_item.xml ( Defined Below )
+            Log.e("MovieAdapter", "New Inflate:");
             gridView = inflater.inflate( R.layout.movie_items , null);
         } else {
             gridView = (View) convertView;

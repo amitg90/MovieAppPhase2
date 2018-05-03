@@ -2,7 +2,8 @@ package com.example.amit.movieapp;
 
 enum Selection_Types {
     Selection_Types_Popularity,
-    Selection_Types_HighestRated
+    Selection_Types_HighestRated,
+    Selection_Types_Favorite
 };
 
 public class Settings {

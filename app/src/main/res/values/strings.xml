@@ -3,5 +3,6 @@
     <array name="spinner_list_item_array">
         <item>Popularity</item>
         <item>Highest Rated</item>
+        <item>Favorite Movies</item>
     </array>
 </resources>
