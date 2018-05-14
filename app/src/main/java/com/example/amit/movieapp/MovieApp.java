@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ public class MovieApp extends Activity {
     public MovieAsyncTask asyncTask;
     public static final String EXTRA_MESSAGE = "com.example.amit.movieapp.MESSAGE";
     public static Database database = null;
+    public static GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,7 @@ public class MovieApp extends Activity {
         database.getReadableDatabase();
 
         // connect adapter to your grid view
-        GridView gridView = (GridView) findViewById(R.id.gridView);
+        gridView = (GridView) findViewById(R.id.gridView);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -47,7 +49,7 @@ public class MovieApp extends Activity {
         });
 
         // Set custom adapter (GridAdapter) to gridview
-        movieAdapter = new MovieAdapter( this);
+        movieAdapter = new MovieAdapter( this, MovieDB.movieInfoArrayList);
         gridView.setAdapter( movieAdapter);
 
         // set adapter onclick listener to display details of movie
@@ -73,6 +75,7 @@ public class MovieApp extends Activity {
                 }
                 asyncTask = new MovieAsyncTask(MovieApp.this);
                 asyncTask.execute();
+                Log.e("MovieApp", "Creating new tasks");
             }
 
             @Override

@@ -13,19 +13,23 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
+
 import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MovieAdapter extends BaseAdapter {
     Context context;
+    ArrayList<MovieInfo> movieInfoArrayList;
 
-    public MovieAdapter(Context context) {
+    public MovieAdapter(Context context, ArrayList<MovieInfo> movieInfoArrayList) {
         this.context = context;
+        this.movieInfoArrayList = movieInfoArrayList;
     }
 
     @Override
     public int getCount() {
-        Log.e("MovieAdapter", "Size:" + MovieDB.movieInfoArrayList.size());
-        return MovieDB.movieInfoArrayList.size();
+        //Log.e("MovieAdapter", "!!!Size:" + movieInfoArrayList.size());
+        return movieInfoArrayList.size();
     }
 
     @Override
@@ -50,18 +54,18 @@ public class MovieAdapter extends BaseAdapter {
 
         if (convertView == null) {
             // get layout from grid_item.xml ( Defined Below )
-            Log.e("MovieAdapter", "New Inflate:");
             gridView = inflater.inflate( R.layout.movie_items , null);
         } else {
             gridView = (View) convertView;
         }
 
         // set value into imageview
-        movieInfo = MovieDB.movieInfoArrayList.get(position);
+        movieInfo = movieInfoArrayList.get(position);
         imageView = gridView.findViewById(R.id.imageView);
 
         // set image based on selected text
         imageUri = MovieDbUtils.IMAGE_BASE_URL + movieInfo.path;
+        //Log.e("!!getView", imageUri);
         Picasso.with(context)
                 .load(imageUri)
                 .into(imageView);

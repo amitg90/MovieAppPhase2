@@ -9,6 +9,7 @@ import android.database.SQLException;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 public class MovieContentProvider extends ContentProvider {
 
@@ -19,6 +20,10 @@ public class MovieContentProvider extends ContentProvider {
     static final int MOVIES = 1;
     static final String ID = "id";
     static final String NAME = "name";
+    static final String PATH = "path";
+    static final String RELEASE_DATE = "release_date";
+    static final String VOTE_AVG = "vote_average";
+    static final String OVERVIEW = "overview";
 
     static final UriMatcher uriMatcher;
     static{

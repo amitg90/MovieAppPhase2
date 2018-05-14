@@ -29,41 +29,31 @@
             />
 
         <TextView
-            android:id="@+id/year_label_tv"
-            android:background="#00ff00"
+            android:id="@+id/release_date_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
             android:layout_toRightOf="@+id/image_view_label_tv"
             android:layout_below="@+id/title_label_tv"
             android:layout_marginTop="20dp"
-            android:text="Year" />
-
-        <TextView
-            android:id="@+id/minute_label_tv"
-            android:background="#00ff00"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/year_label_tv"
-            android:layout_toRightOf="@+id/image_view_label_tv"
-            android:text="Minutes" />
-
-        <TextView
-            android:id="@+id/release_date_label_tv"
-            android:background="#00ff00"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/minute_label_tv"
-            android:layout_toRightOf="@+id/image_view_label_tv"
             android:text="Release Date" />
+
+        <TextView
+            android:id="@+id/vote_label_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@+id/release_date_label_tv"
+            android:layout_toRightOf="@+id/image_view_label_tv"
+            android:text="Votes" />
 
         <Button
             android:id="@+id/favorite_label_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/image_view_label_tv"
-            android:layout_below="@+id/release_date_label_tv"
+            android:layout_below="@+id/vote_label_tv"
             android:layout_marginTop="20dp"
             android:text="Mark as Favorite" />
 
@@ -94,9 +84,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="15sp"
+            android:textSize="18sp"
             android:layout_marginLeft="10dp"
             android:layout_below="@+id/divider"
+            android:textStyle="bold"
             android:text="Trailers" />
 
 

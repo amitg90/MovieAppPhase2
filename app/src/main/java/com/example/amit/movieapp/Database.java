@@ -49,7 +49,9 @@ public class Database extends SQLiteOpenHelper {
 
     public long insertFav (ContentValues contentValues) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long id = db.insert(FAV_TABLE_NAME, null, contentValues);
+        long id;
+
+        id = db.insertWithOnConflict(FAV_TABLE_NAME, null, contentValues,SQLiteDatabase.CONFLICT_REPLACE);
 
         return id;
     }
@@ -87,6 +89,7 @@ public class Database extends SQLiteOpenHelper {
             movieInfo.title = res.getString(res.getColumnIndex(FAV_COLUMN_NAME));
             movieInfo.id = res.getString(res.getColumnIndex(FAV_COLUMN_ID));
             movieInfo.path = res.getString(res.getColumnIndex(PATH_COLUMN_NAME));
+            Log.e("Database", "Read Path:" + movieInfo.path);
             movieInfo.release_date = res.getString(res.getColumnIndex(RELEASE_DATE_COLUMN_NAME));
             movieInfo.vote_average = res.getString(res.getColumnIndex(VOTE_AVG_COLUMN_NAME));
             movieInfo.overview = res.getString(res.getColumnIndex(OVERVIEW_COLUMN_NAME));

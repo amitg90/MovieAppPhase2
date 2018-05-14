@@ -32,74 +32,12 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
         if (context.movieAdapter != null) {
             Log.e("MovieAsyncTask!!", "Triggered Movie Adapter");
             context.movieAdapter.notifyDataSetChanged();
+            context.gridView.setAdapter( context.movieAdapter);
         }
 
         if (MovieDetail.reviewAdapter != null) {
             Log.e("MovieAsyncTask!!", "Triggered Review Adapter");
             MovieDetail.reviewAdapter.notifyDataSetChanged();
-        }
-    }
-
-    void create_youtube_keys(MovieInfo movieInfo) throws IOException, JSONException {
-        URL youtubeurl;
-        JSONObject obj;
-        JSONObject oneObject;
-        JSONArray youtuberesult;
-
-        youtubeurl = MovieDbUtils.buildYouTubeQueryKeyURL(movieInfo.id);
-        String youtuberesponse = MovieDbUtils.getResponseFromHttpUrl(youtubeurl);
-
-        obj = new JSONObject(youtuberesponse);
-        youtuberesult = obj.getJSONArray("results");
-
-        //  Log.e("AMit NEW SIZE!!", String.valueOf(youtuberesult.length()));
-        for (int j = 0; j < youtuberesult.length(); j++) {
-            try {
-                oneObject = youtuberesult.getJSONObject(j);
-
-                // Pulling items from the array
-               // Log.e("YOUTUBEKEY", oneObject.getString("key"));
-
-                movieInfo.youtubekeylist.add(oneObject.getString("key"));
-            } catch (JSONException e) {
-                // Oops
-            }
-        }
-    }
-
-    void create_review_list(MovieInfo movieInfo) throws IOException, JSONException {
-        URL reviewurl;
-        JSONObject obj;
-        JSONObject oneObject;
-        JSONArray reviewresult;
-
-        reviewurl = MovieDbUtils.buildReviewKeyGetURL(movieInfo.id);
-        String reviewresponse = MovieDbUtils.getResponseFromHttpUrl(reviewurl);
-
-        obj = new JSONObject(reviewresponse);
-        reviewresult = obj.getJSONArray("results");
-
-        // Log.e("AMit NEW SIZE!!", String.valueOf(reviewresult.length()));
-        ReviewInfo reviewInfo;
-        for (int j = 0; j < reviewresult.length(); j++) {
-            try {
-                oneObject = reviewresult.getJSONObject(j);
-
-                // Pulling items from the array
-                //Log.e("YOUTUBEKEY", oneObject.getString("key"));
-                reviewInfo = new ReviewInfo();
-                reviewInfo.reviewer = oneObject.getString("author");
-                reviewInfo.data = oneObject.getString("content");
-
-                // details not needed
-                //  review_detail_url = MovieDbUtils.buildReviewDetailKeyGetURL(movieInfo.id, review_id);
-                // review_detail_response = MovieDbUtils.getResponseFromHttpUrl(reviewurl);
-                //Log.e("AMit AUTHOR!!", reviewInfo.reviewer);
-
-                movieInfo.reviewList.add(reviewInfo);
-            } catch (JSONException e) {
-                // Oops
-            }
         }
     }
 
@@ -124,6 +62,8 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 JSONArray result = obj.getJSONArray("results");
                 MovieDB.movieInfoArrayList.clear();
 
+                Log.e("MovieAsyncTask!!", "Received:" + result.length());
+
                 for (int i = 0; i < result.length(); i++) {
                     try {
                         JSONObject oneObject = result.getJSONObject(i);
@@ -141,12 +81,6 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                         if (i == 0) {
                             Log.e("!!PATH", movieInfo.path);
                         }
-
-                        // Read youtube keys
-                        create_youtube_keys(movieInfo);
-
-                        // read all reviews of this movie.
-                        create_review_list(movieInfo);
                     } catch (JSONException e) {
                         // Oops
                     }
@@ -156,17 +90,7 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 Log.e("Amit", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
                 for (int i = 0; i < MovieDB.movieInfoArrayList.size(); i++) {
                     movieInfo = MovieDB.movieInfoArrayList.get(i);
-
-                    // Read youtube keys
-                    create_youtube_keys(movieInfo);
-
-                    // read all reviews of this movie.
-                    create_review_list(movieInfo);
-
-                    context.movieAdapter = new MovieAdapter(context);
-
                 }
-
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -174,5 +98,10 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    protected void onCancelled() {
+        Log.e("FAILED", "Failed");
     }
 }
