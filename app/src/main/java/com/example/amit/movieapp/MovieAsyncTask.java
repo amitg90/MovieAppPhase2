@@ -26,17 +26,17 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.e("MovieAsyncTask!!", "onPostExecute");
+        Log.d("MovieAsyncTask!!", "onPostExecute");
 
         // trigger adapter;
         if (context.movieAdapter != null) {
-            Log.e("MovieAsyncTask!!", "Triggered Movie Adapter");
+            Log.d("MovieAsyncTask!!", "Triggered Movie Adapter");
             context.movieAdapter.notifyDataSetChanged();
             context.gridView.setAdapter( context.movieAdapter);
         }
 
         if (MovieDetail.reviewAdapter != null) {
-            Log.e("MovieAsyncTask!!", "Triggered Review Adapter");
+            Log.d("MovieAsyncTask!!", "Triggered Review Adapter");
             MovieDetail.reviewAdapter.notifyDataSetChanged();
         }
     }
@@ -52,7 +52,7 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 url = MovieDbUtils.buildHighestRatedURL();
             } else {
                 url = null;
-                Log.e("Amit!!", "URL IS NULL");
+                Log.d("Amit!!", "URL IS NULL");
             }
 
             if (url != null) {
@@ -62,7 +62,7 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 JSONArray result = obj.getJSONArray("results");
                 MovieDB.movieInfoArrayList.clear();
 
-                Log.e("MovieAsyncTask!!", "Received:" + result.length());
+                Log.d("MovieAsyncTask!!", "Received:" + result.length());
 
                 for (int i = 0; i < result.length(); i++) {
                     try {
@@ -79,7 +79,7 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                         MovieDB.movieInfoArrayList.add(movieInfo);
 
                         if (i == 0) {
-                            Log.e("!!PATH", movieInfo.path);
+                            Log.d("!!PATH", movieInfo.path);
                         }
                     } catch (JSONException e) {
                         // Oops
@@ -87,7 +87,7 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 }
             } else {
                 // url is null that means get movie info list from DB and add to list
-                Log.e("Amit", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
+                Log.d("Amit", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
                 for (int i = 0; i < MovieDB.movieInfoArrayList.size(); i++) {
                     movieInfo = MovieDB.movieInfoArrayList.get(i);
                 }
@@ -102,6 +102,6 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
 
     @Override
     protected void onCancelled() {
-        Log.e("FAILED", "Failed");
+        Log.d("FAILED", "Failed");
     }
 }

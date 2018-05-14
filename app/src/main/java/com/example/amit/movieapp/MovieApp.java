@@ -75,7 +75,7 @@ public class MovieApp extends Activity {
                 }
                 asyncTask = new MovieAsyncTask(MovieApp.this);
                 asyncTask.execute();
-                Log.e("MovieApp", "Creating new tasks");
+                Log.d("MovieApp", "Creating new tasks");
             }
 
             @Override

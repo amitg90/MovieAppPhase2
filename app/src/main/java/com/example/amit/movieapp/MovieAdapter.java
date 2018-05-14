@@ -28,7 +28,7 @@ public class MovieAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        //Log.e("MovieAdapter", "!!!Size:" + movieInfoArrayList.size());
+        //Log.d("MovieAdapter", "!!!Size:" + movieInfoArrayList.size());
         return movieInfoArrayList.size();
     }
 
@@ -65,7 +65,7 @@ public class MovieAdapter extends BaseAdapter {
 
         // set image based on selected text
         imageUri = MovieDbUtils.IMAGE_BASE_URL + movieInfo.path;
-        //Log.e("!!getView", imageUri);
+        //Log.d("!!getView", imageUri);
         Picasso.with(context)
                 .load(imageUri)
                 .into(imageView);

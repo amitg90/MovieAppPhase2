@@ -52,7 +52,7 @@ public class MovieDetail extends Activity {
 //            trailerTextView.setVisibility(View.VISIBLE);
 //        }
 
-        //Log.e("MovieDetailActivty", String.valueOf(movieInfo.youtubekeylist.size()));
+        //Log.d("MovieDetailActivty", String.valueOf(movieInfo.youtubekeylist.size()));
 
         MovieTrailersListAdapter adapter = new MovieTrailersListAdapter(this, movieInfo.youtubekeylist);
         trailerListView.setAdapter(adapter);
@@ -63,7 +63,7 @@ public class MovieDetail extends Activity {
 
                 String key = MovieTrailersListAdapter.trailerlist.get(position);
 
-                Log.e("MovieDetail", key);
+                Log.d("MovieDetail", key);
                 Intent appIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube:" + key));
                 Intent webIntent = new Intent(Intent.ACTION_VIEW,
                         Uri.parse("http://www.youtube.com/watch?v=" + key));
@@ -76,7 +76,7 @@ public class MovieDetail extends Activity {
         });
 
 
-        Log.e("MovieDetailActivity", String.valueOf(movieInfo.reviewList.size()));
+        Log.d("MovieDetailActivity", String.valueOf(movieInfo.reviewList.size()));
 
         reviewAdapter = new ReviewAdapter(this, movieInfo.reviewList);
         reviewListView.setAdapter(reviewAdapter);
@@ -86,7 +86,7 @@ public class MovieDetail extends Activity {
         favButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("MovieDetail", "Button pressed");
+                Log.d("MovieDetail", "Button pressed");
 
                 // Add a entry in DB using content provider
                 ContentValues values = new ContentValues();
@@ -103,6 +103,8 @@ public class MovieDetail extends Activity {
 
                 Uri uri = getContentResolver().insert(
                         MovieContentProvider.CONTENT_URI, values);
+
+                Toast.makeText(getApplicationContext(), "Movie marked as favorite", Toast.LENGTH_LONG).show();
             }
         });
     }

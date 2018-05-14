@@ -47,7 +47,7 @@ public class ReviewAdapter extends BaseAdapter {
         View view;
         ReviewInfo reviewInfo = trailerlist.get(position);
 
-        Log.e("!!!ReviewAdapter", "Called with position:" + String.valueOf(position));
+        //Log.d("!!!ReviewAdapter", "Called with position:" + String.valueOf(position));
 
         if (convertView == null) {
             // get layout from grid_item.xml ( Defined Below )
@@ -63,7 +63,7 @@ public class ReviewAdapter extends BaseAdapter {
         // set value into textView
         textView = view.findViewById(R.id.info_text);
         textView.setText(reviewInfo.data);
-        //Log.e("ReviewAdapter", reviewInfo.data);
+        //Log.d("ReviewAdapter", reviewInfo.data);
 
         return view;
     }

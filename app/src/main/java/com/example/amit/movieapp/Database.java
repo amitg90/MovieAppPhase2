@@ -22,14 +22,14 @@ public class Database extends SQLiteOpenHelper {
 
     public Database(Context context) {
         super(context, DATABASE_NAME , null, 1);
-        Log.e("Database", "Constructor Called");
+        Log.d("Database", "Constructor Called");
         getReadableDatabase();
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         // TODO Auto-generated method stub
-        Log.e("Database", "onCreate Called");
+        Log.d("Database", "onCreate Called");
         try {
             db.execSQL(
                     "create table UserFavMovies " +
@@ -89,12 +89,12 @@ public class Database extends SQLiteOpenHelper {
             movieInfo.title = res.getString(res.getColumnIndex(FAV_COLUMN_NAME));
             movieInfo.id = res.getString(res.getColumnIndex(FAV_COLUMN_ID));
             movieInfo.path = res.getString(res.getColumnIndex(PATH_COLUMN_NAME));
-            Log.e("Database", "Read Path:" + movieInfo.path);
+            Log.d("Database", "Read Path:" + movieInfo.path);
             movieInfo.release_date = res.getString(res.getColumnIndex(RELEASE_DATE_COLUMN_NAME));
             movieInfo.vote_average = res.getString(res.getColumnIndex(VOTE_AVG_COLUMN_NAME));
             movieInfo.overview = res.getString(res.getColumnIndex(OVERVIEW_COLUMN_NAME));
             MovieDB.movieInfoArrayList.add(movieInfo);
-            Log.e("Database-READ-ALL", movieInfo.title);
+            Log.d("Database-READ-ALL", movieInfo.title);
             res.moveToNext();
         }
         return;

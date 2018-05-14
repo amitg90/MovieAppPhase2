@@ -36,7 +36,7 @@ public class MovieDbUtils {
             e.printStackTrace();
         }
 
-        Log.e(TAG, "Built URI " + url);
+        Log.d(TAG, "Built URI " + url);
 
         return url;
     }
@@ -52,7 +52,7 @@ public class MovieDbUtils {
             e.printStackTrace();
         }
 
-        Log.e(TAG, "!!!!Built URI " + url);
+        Log.d(TAG, "!!!!Built URI " + url);
 
         return url;
     }
@@ -91,7 +91,7 @@ public class MovieDbUtils {
             e.printStackTrace();
         }
 
-        //Log.e(TAG, "Built YOUTUBE URI " + url);
+        //Log.d(TAG, "Built YOUTUBE URI " + url);
 
         return url;
     }
@@ -109,7 +109,7 @@ public class MovieDbUtils {
             e.printStackTrace();
         }
 
-     //   Log.e(TAG, "Built REVIEW KEY URI " + url);
+     //   Log.d(TAG, "Built REVIEW KEY URI " + url);
 
         return url;
     }
@@ -127,7 +127,7 @@ public class MovieDbUtils {
             e.printStackTrace();
         }
 
-     //   Log.e(TAG, "Built REVIEW DETAIL URI " + url);
+     //   Log.d(TAG, "Built REVIEW DETAIL URI " + url);
 
         return url;
     }
