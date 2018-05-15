@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.GridView;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -48,9 +49,15 @@ public class MovieApp extends Activity {
             }
         });
 
+
         // Set custom adapter (GridAdapter) to gridview
         movieAdapter = new MovieAdapter( this, MovieDB.movieInfoArrayList);
         gridView.setAdapter( movieAdapter);
+
+        if (savedInstanceState != null) {
+            int index = savedInstanceState.getInt("SCROLL_POSITION");
+            gridView.setSelection(index);
+        }
 
         // set adapter onclick listener to display details of movie
         Spinner spinner = findViewById(R.id.spinner);
@@ -94,5 +101,12 @@ public class MovieApp extends Activity {
             spinner.setAdapter(adapter);
         }
 
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        int index = gridView.getFirstVisiblePosition();
+        outState.putInt("SCROLL_POSITION", index);
     }
 }
