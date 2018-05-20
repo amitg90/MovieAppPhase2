@@ -1,21 +1,14 @@
 package com.example.amit.movieapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MovieAdapter extends BaseAdapter {
     Context context;
@@ -56,18 +49,21 @@ public class MovieAdapter extends BaseAdapter {
             // get layout from grid_item.xml ( Defined Below )
             gridView = inflater.inflate( R.layout.movie_items , null);
         } else {
-            gridView = (View) convertView;
+            gridView = convertView;
         }
 
         // set value into imageview
+        //Log.e("MovieAdapter Query Position:", String.valueOf(position));
         movieInfo = movieInfoArrayList.get(position);
         imageView = gridView.findViewById(R.id.imageView);
 
         // set image based on selected text
         imageUri = MovieDbUtils.IMAGE_BASE_URL + movieInfo.path;
-        //Log.d("!!getView", imageUri);
+        //Log.e("MovieAdapter", "Image URI Fetch:" +imageUri);
         Picasso.with(context)
                 .load(imageUri)
+                .placeholder(R.drawable.loading)
+                .error(R.drawable.error)
                 .into(imageView);
 
         return gridView;

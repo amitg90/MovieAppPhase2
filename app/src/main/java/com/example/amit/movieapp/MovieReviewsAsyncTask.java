@@ -1,14 +1,9 @@
 package com.example.amit.movieapp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.net.URL;
 
@@ -36,7 +31,7 @@ public class MovieReviewsAsyncTask  extends AsyncTask<MovieInfo, Void,Void> {
                 // Pulling items from the array
                 // Log.d("YOUTUBEKEY", oneObject.getString("key"));
 
-                movieInfo.youtubekeylist.add(oneObject.getString("key"));
+                movieInfo.trailerKeyList.add(oneObject.getString("key"));
             } catch (JSONException e) {
                 // Oops
             }

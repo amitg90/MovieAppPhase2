@@ -8,8 +8,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
-
 public class Database extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "FavMovies.db";
     public static final String FAV_TABLE_NAME = "UserFavMovies";
@@ -58,14 +56,12 @@ public class Database extends SQLiteOpenHelper {
 
     public Cursor getData(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res =  db.rawQuery( "select * from UserFavMovies where id="+id+"", null );
-        return res;
+        return (db.rawQuery( "select * from UserFavMovies where id="+id+"", null ));
     }
 
     public int numberOfRows(){
         SQLiteDatabase db = this.getReadableDatabase();
-        int numRows = (int) DatabaseUtils.queryNumEntries(db, FAV_TABLE_NAME);
-        return numRows;
+        return ((int)DatabaseUtils.queryNumEntries(db, FAV_TABLE_NAME));
     }
 
     public Integer deleteFav(long id) {
@@ -97,6 +93,10 @@ public class Database extends SQLiteOpenHelper {
             Log.d("Database-READ-ALL", movieInfo.title);
             res.moveToNext();
         }
+
+        Log.e("Database", "Read DB entries:" + MovieDB.movieInfoArrayList.size());
+
+        res.close();
         return;
     }
 }

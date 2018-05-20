@@ -24,7 +24,7 @@
             android:id="@+id/image_view_label_tv"
             android:paddingTop="5dp"
             android:layout_width="180dp"
-            android:layout_height="190dp"
+            android:layout_height="160dp"
             android:layout_below="@+id/title_label_tv"
             />
 
@@ -59,19 +59,20 @@
 
         <ScrollView
             android:layout_width="wrap_content"
+            android:layout_marginTop="15dp"
             android:id="@+id/overview_scroll_view"
             android:layout_below="@+id/image_view_label_tv"
-            android:layout_height="130dp">
+            android:layout_height="140dp">
             <TextView
                 android:id="@+id/overview_tv"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_height="50dp"
                 android:textSize="15sp"
-                android:gravity="right | left"
+                android:gravity="left"
                 android:layout_marginLeft="10dp"
                 android:text="Overview Info" />
         </ScrollView>
+
         <View
             android:id="@+id/divider"
             android:layout_width="match_parent"
@@ -90,22 +91,18 @@
             android:textStyle="bold"
             android:text="Trailers" />
 
-
         <ListView
             android:id="@+id/youtube_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="90dp"
-            android:layout_marginTop="10dp"
             android:layout_below="@+id/trailer_label_tv"
-            />
+            android:layout_width="wrap_content"
+            android:layout_height="60dp" />
 
         <ListView
             android:id="@+id/review_list_view"
+            android:layout_below="@+id/youtube_list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/youtube_list_view"
-            />
+            android:layout_marginTop="10dp" />
 
     </RelativeLayout>
 </ScrollView>

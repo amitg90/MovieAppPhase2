@@ -1,43 +1,35 @@
 package com.example.amit.movieapp;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CursorAdapter;
 import android.widget.GridView;
-import android.widget.ScrollView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 public class MovieApp extends Activity {
     public MovieAdapter movieAdapter = null;
     public MovieAsyncTask asyncTask;
     public static final String EXTRA_MESSAGE = "com.example.amit.movieapp.MESSAGE";
     public static Database database = null;
-    public static GridView gridView;
+    private GridView gridView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_app);
 
-        // create ASYNC tasks to fetch movies and store in some Custom Array
-        asyncTask = new MovieAsyncTask(this);
-        asyncTask.execute();
+        // FYI, async task will be created when spinner is triggered.
 
         // database init
         database = new Database(this);
         database.getReadableDatabase();
 
         // connect adapter to your grid view
-        gridView = (GridView) findViewById(R.id.gridView);
+        gridView = findViewById(R.id.gridView);
 
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -54,9 +46,12 @@ public class MovieApp extends Activity {
         movieAdapter = new MovieAdapter( this, MovieDB.movieInfoArrayList);
         gridView.setAdapter( movieAdapter);
 
+        Log.e("MovieApp", "!!MOVIE LIST SIZE:" + MovieDB.movieInfoArrayList.size());
+
         if (savedInstanceState != null) {
             int index = savedInstanceState.getInt("SCROLL_POSITION");
-            gridView.setSelection(index);
+            Log.e("MovieApp", "!!Setting POSITION:" + index);
+            Settings.gridViewSelection = index;
         }
 
         // set adapter onclick listener to display details of movie
@@ -75,11 +70,14 @@ public class MovieApp extends Activity {
                     // trigger DB read.
                     getContentResolver().query(
                             MovieContentProvider.CONTENT_URI, null, null, null, null);
-
-                    Toast.makeText(getBaseContext(),
-                            "DB Query happened", Toast.LENGTH_LONG).show();
-
                 }
+
+                // clear DB only if we are not fetching fav
+                if (Settings.selection_types != Selection_Types.Selection_Types_Favorite) {
+                    MovieDB.movieInfoArrayList.clear();
+                    movieAdapter.notifyDataSetChanged();
+                }
+                Log.e("MovieApp", "Tab Changed: Trigger asyncTask!!!");
                 asyncTask = new MovieAsyncTask(MovieApp.this);
                 asyncTask.execute();
                 Log.d("MovieApp", "Creating new tasks");
@@ -97,10 +95,7 @@ public class MovieApp extends Activity {
                 android.R.layout.simple_list_item_1, options);
 
         // Apply the adapter to the spinner
-        if (spinner != null) {
-            spinner.setAdapter(adapter);
-        }
-
+        spinner.setAdapter(adapter);
     }
 
     @Override
@@ -108,5 +103,6 @@ public class MovieApp extends Activity {
         super.onSaveInstanceState(outState);
         int index = gridView.getFirstVisiblePosition();
         outState.putInt("SCROLL_POSITION", index);
+        Log.e("MovieApp", "!!!Saving Position:" + index);
     }
 }

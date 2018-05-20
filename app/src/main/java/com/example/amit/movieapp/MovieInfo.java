@@ -9,12 +9,12 @@ public class MovieInfo {
     String release_date;
     String vote_average;
     String overview;
-    ArrayList<String> youtubekeylist;
+    ArrayList<String> trailerKeyList;
     ArrayList<ReviewInfo> reviewList;
 
     public MovieInfo()
     {
-        youtubekeylist = new ArrayList<String>();
+        trailerKeyList = new ArrayList<String>();
         reviewList = new ArrayList<ReviewInfo>();
     }
 }

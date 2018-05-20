@@ -1,16 +1,12 @@
 package com.example.amit.movieapp;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class MovieTrailersListAdapter extends BaseAdapter {
@@ -51,7 +47,7 @@ public class MovieTrailersListAdapter extends BaseAdapter {
             // get layout from grid_item.xml ( Defined Below )
             view = inflater.inflate( R.layout.movie_detail_list_item , null);
         } else {
-            view = (View) convertView;
+            view = convertView;
         }
 
         // set value into textView

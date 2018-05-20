@@ -5,9 +5,9 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -17,8 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
-
-import static android.provider.AlarmClock.EXTRA_MESSAGE;
 
 public class MovieDetail extends Activity {
 
@@ -34,27 +32,9 @@ public class MovieDetail extends Activity {
         // set button onclick listener to update database through content Provider
         final Button favButton = findViewById(R.id.favorite_label_tv);
 
-        TextView trailerTextView = findViewById(R.id.trailer_label_tv);
-
-//        /* No need to shows trailers and reviews if in favroite mode
-//         */
-//        if (Settings.selection_types == Selection_Types.Selection_Types_Favorite) {
-//            // hide trailer and reviews.
-//            trailerListView.setVisibility(View.INVISIBLE);
-//            reviewListView.setVisibility(View.INVISIBLE);
-//            favButton.setVisibility(View.INVISIBLE);
-//            trailerTextView.setVisibility(View.INVISIBLE);
-//            return;
-//        } else {
-//            trailerListView.setVisibility(View.VISIBLE);
-//            reviewListView.setVisibility(View.VISIBLE);
-//            favButton.setVisibility(View.VISIBLE);
-//            trailerTextView.setVisibility(View.VISIBLE);
-//        }
-
         //Log.d("MovieDetailActivty", String.valueOf(movieInfo.youtubekeylist.size()));
 
-        MovieTrailersListAdapter adapter = new MovieTrailersListAdapter(this, movieInfo.youtubekeylist);
+        MovieTrailersListAdapter adapter = new MovieTrailersListAdapter(this, movieInfo.trailerKeyList);
         trailerListView.setAdapter(adapter);
 
         trailerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,7 +101,7 @@ public class MovieDetail extends Activity {
         int position = intent.getIntExtra(MovieApp.EXTRA_MESSAGE, -1);
 
         if (position == -1) {
-            Toast.makeText(this, "Invalid Position entered", Toast.LENGTH_LONG);
+            Toast.makeText(this, "Invalid Position entered", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -159,6 +139,51 @@ public class MovieDetail extends Activity {
         textView = findViewById(R.id.vote_label_tv);
         textView.setText("Average Vote: " + movieInfo.vote_average);
 
+        ListView listView = findViewById(R.id.youtube_list_view);
+        listView.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        view.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        view.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                view.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
+
+        listView = findViewById(R.id.review_list_view);
+        listView.setOnTouchListener(new ListView.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                int action = motionEvent.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        view.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        view.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                view.onTouchEvent(motionEvent);
+                return true;
+            }
+        });
     }
 
 }

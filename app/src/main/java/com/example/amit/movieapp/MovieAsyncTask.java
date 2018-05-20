@@ -1,24 +1,17 @@
 package com.example.amit.movieapp;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.Gravity;
-import android.widget.GridLayout;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Picasso;
-
+import android.widget.GridView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 
 public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
-    MovieApp context;
+    private MovieApp context;
 
     public MovieAsyncTask(MovieApp context) {
         this.context = context;
@@ -26,18 +19,38 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.d("MovieAsyncTask!!", "onPostExecute");
+        Log.e("MovieAsyncTask", "onPostExecute");
 
         // trigger adapter;
         if (context.movieAdapter != null) {
-            Log.d("MovieAsyncTask!!", "Triggered Movie Adapter");
-            context.movieAdapter.notifyDataSetChanged();
-            context.gridView.setAdapter( context.movieAdapter);
+            Log.e("MovieAsyncTask", "Triggered Movie Adapter Num Entries:" + MovieDB.movieInfoArrayList.size());
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    // connect adapter to your grid view
+                    GridView gridView = context.findViewById(R.id.gridView);
+
+                    Log.e("MovieAsyncTask", "Updating Movie Adapter");
+                    context.movieAdapter.notifyDataSetChanged();
+                    //gridView.setAdapter( context.movieAdapter);
+                    if (Settings.gridViewSelection != -1 &&
+                            Settings.gridViewSelection < MovieDB.movieInfoArrayList.size()) {
+                        gridView.setSelection(Settings.gridViewSelection);
+                        Log.e("MovieAsyncTask", "Setting Grid Position to:" + Settings.gridViewSelection);
+                    }
+                    Settings.gridViewSelection = -1;
+                }
+            });
         }
 
         if (MovieDetail.reviewAdapter != null) {
-            Log.d("MovieAsyncTask!!", "Triggered Review Adapter");
-            MovieDetail.reviewAdapter.notifyDataSetChanged();
+            Log.d("MovieAsyncTask", "Triggered Review Adapter");
+            context.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    MovieDetail.reviewAdapter.notifyDataSetChanged();
+                }
+            });
         }
     }
 
@@ -47,12 +60,14 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
         URL url;
         try {
             if (Settings.selection_types == Selection_Types.Selection_Types_Popularity) {
+                Log.e("MovieAsyncAdapter:", "Requesting Popularity");
                 url = MovieDbUtils.buildPopularURL();
             } else if (Settings.selection_types == Selection_Types.Selection_Types_HighestRated) {
+                Log.e("MovieAsyncAdapter:", "Requesting HighestRated");
                 url = MovieDbUtils.buildHighestRatedURL();
             } else {
                 url = null;
-                Log.d("Amit!!", "URL IS NULL");
+                Log.d("MovieAsyncTask", "URL IS NULL");
             }
 
             if (url != null) {
@@ -60,8 +75,6 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 String response = MovieDbUtils.getResponseFromHttpUrl(url);
                 JSONObject obj = new JSONObject(response);
                 JSONArray result = obj.getJSONArray("results");
-                MovieDB.movieInfoArrayList.clear();
-
                 Log.d("MovieAsyncTask!!", "Received:" + result.length());
 
                 for (int i = 0; i < result.length(); i++) {
@@ -87,9 +100,11 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 }
             } else {
                 // url is null that means get movie info list from DB and add to list
-                Log.d("Amit", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
+                Log.e("MovieAsyncTask", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
                 for (int i = 0; i < MovieDB.movieInfoArrayList.size(); i++) {
                     movieInfo = MovieDB.movieInfoArrayList.get(i);
+
+
                 }
             }
         } catch (JSONException e) {

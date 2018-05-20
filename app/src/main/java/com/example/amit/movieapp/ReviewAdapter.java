@@ -1,32 +1,26 @@
 package com.example.amit.movieapp;
 
 import android.content.Context;
-import android.support.constraint.ConstraintLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
 public class ReviewAdapter extends BaseAdapter {
     Context context;
-    public static ArrayList<ReviewInfo> trailerlist;
+    public static ArrayList<ReviewInfo> trailerList;
 
-    public ReviewAdapter(Context context, ArrayList<ReviewInfo> trailerlist)
+    public ReviewAdapter(Context context, ArrayList<ReviewInfo> trailerList)
     {
-        this.trailerlist = trailerlist;
+        this.trailerList = trailerList;
         this.context = context;
     }
 
     @Override
     public int getCount() {
-        return trailerlist.size();
+        return trailerList.size();
     }
 
     @Override
@@ -45,7 +39,7 @@ public class ReviewAdapter extends BaseAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         View view;
-        ReviewInfo reviewInfo = trailerlist.get(position);
+        ReviewInfo reviewInfo = trailerList.get(position);
 
         //Log.d("!!!ReviewAdapter", "Called with position:" + String.valueOf(position));
 
@@ -53,7 +47,7 @@ public class ReviewAdapter extends BaseAdapter {
             // get layout from grid_item.xml ( Defined Below )
             view = inflater.inflate( R.layout.card_view_layout , null);
         } else {
-            view = (View) convertView;
+            view = convertView;
         }
 
         // set reviewer name
