@@ -22,23 +22,42 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
         Log.e("MovieAsyncTask", "onPostExecute");
 
         // trigger adapter;
-        if (context.movieAdapter != null) {
+//        if (context.movieAdapter != null) {
+//            Log.e("MovieAsyncTask", "Triggered Movie Adapter Num Entries:" + MovieDB.movieInfoArrayList.size());
+//            context.runOnUiThread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    // connect adapter to your grid view
+//                    GridView gridView = context.findViewById(R.id.gridView);
+//
+//                    Log.e("MovieAsyncTask", "Updating Movie Adapter");
+//                    context.movieAdapter.notifyDataSetChanged();
+//                    //gridView.setAdapter( context.movieAdapter);
+//                    if (Settings.gridViewSelection != -1 &&
+//                            Settings.gridViewSelection < MovieDB.movieInfoArrayList.size()) {
+//                        gridView.setSelection(Settings.gridViewSelection);
+//                        Log.e("MovieAsyncTask", "Setting Grid Position to:" + Settings.gridViewSelection);
+//                    }
+//                    Settings.gridViewSelection = -1;
+//                }
+//            });
+//        }
+
+        if (context.movieGridAdapter != null) {
             Log.e("MovieAsyncTask", "Triggered Movie Adapter Num Entries:" + MovieDB.movieInfoArrayList.size());
             context.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     // connect adapter to your grid view
-                    GridView gridView = context.findViewById(R.id.gridView);
 
                     Log.e("MovieAsyncTask", "Updating Movie Adapter");
-                    context.movieAdapter.notifyDataSetChanged();
+                    context.movieGridAdapter.notifyDataSetChanged();
                     //gridView.setAdapter( context.movieAdapter);
-                    if (Settings.gridViewSelection != -1 &&
-                            Settings.gridViewSelection < MovieDB.movieInfoArrayList.size()) {
-                        gridView.setSelection(Settings.gridViewSelection);
-                        Log.e("MovieAsyncTask", "Setting Grid Position to:" + Settings.gridViewSelection);
+                    if (Settings.parcelable != null) {
+                        Log.e("MovieAsyncTask", "Setting Grid Position to:" + Settings.parcelable);
+                        MovieApp.recyclerView.getLayoutManager().onRestoreInstanceState(Settings.parcelable);
+                        Settings.parcelable = null;
                     }
-                    Settings.gridViewSelection = -1;
                 }
             });
         }

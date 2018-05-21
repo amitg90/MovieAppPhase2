@@ -2,7 +2,12 @@ package com.example.amit.movieapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,49 +15,37 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.Spinner;
 
-public class MovieApp extends Activity {
-    public MovieAdapter movieAdapter = null;
+public class MovieApp extends Activity implements CustomGridItemClick {
+    public MovieGridAdapter movieGridAdapter = null;
     public MovieAsyncTask asyncTask;
-    public static final String EXTRA_MESSAGE = "com.example.amit.movieapp.MESSAGE";
     public static Database database = null;
-    private GridView gridView;
+    public static RecyclerView recyclerView;
+    public static final String EXTRA_MESSAGE = "com.example.amit.movieapp.MESSAGE";
+    Parcelable parcelable = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_movie_app);
-
-        // FYI, async task will be created when spinner is triggered.
 
         // database init
         database = new Database(this);
         database.getReadableDatabase();
 
-        // connect adapter to your grid view
-        gridView = findViewById(R.id.gridView);
+        if (savedInstanceState != null) {
+            Settings.parcelable = savedInstanceState.getParcelable("SAVED_LAYOUT_MANAGER");
+            Log.e("MovieApp", "!!Setting POSITION:");
+        }
 
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // get position and trigger detail activity view
-                Intent intent = new Intent(getApplicationContext(), MovieDetail.class);
-                intent.putExtra(EXTRA_MESSAGE, position);
-                startActivity(intent);
-            }
-        });
+        movieGridAdapter = new MovieGridAdapter(recyclerView, this, this, MovieDB.movieInfoArrayList);
+        recyclerView = findViewById(R.id.rv_numbers);
+        recyclerView.setAdapter(movieGridAdapter);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        recyclerView.setLayoutManager(gridLayoutManager);
 
-
-        // Set custom adapter (GridAdapter) to gridview
-        movieAdapter = new MovieAdapter( this, MovieDB.movieInfoArrayList);
-        gridView.setAdapter( movieAdapter);
 
         Log.e("MovieApp", "!!MOVIE LIST SIZE:" + MovieDB.movieInfoArrayList.size());
-
-        if (savedInstanceState != null) {
-            int index = savedInstanceState.getInt("SCROLL_POSITION");
-            Log.e("MovieApp", "!!Setting POSITION:" + index);
-            Settings.gridViewSelection = index;
-        }
 
         // set adapter onclick listener to display details of movie
         Spinner spinner = findViewById(R.id.spinner);
@@ -75,7 +68,7 @@ public class MovieApp extends Activity {
                 // clear DB only if we are not fetching fav
                 if (Settings.selection_types != Selection_Types.Selection_Types_Favorite) {
                     MovieDB.movieInfoArrayList.clear();
-                    movieAdapter.notifyDataSetChanged();
+//                    movieAdapter.notifyDataSetChanged();
                 }
                 Log.e("MovieApp", "Tab Changed: Trigger asyncTask!!!");
                 asyncTask = new MovieAsyncTask(MovieApp.this);
@@ -101,8 +94,14 @@ public class MovieApp extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        int index = gridView.getFirstVisiblePosition();
-        outState.putInt("SCROLL_POSITION", index);
-        Log.e("MovieApp", "!!!Saving Position:" + index);
+        outState.putParcelable("SAVED_LAYOUT_MANAGER", recyclerView.getLayoutManager().onSaveInstanceState());
+        Log.e("MovieApp", "!!!Saving Position:");
+    }
+
+    @Override
+    public void onItemClick(View v, int position) {
+        Intent intent = new Intent(this, MovieDetail.class);
+        intent.putExtra(EXTRA_MESSAGE, position);
+        startActivity(intent);
     }
 }

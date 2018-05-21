@@ -45,7 +45,7 @@ public class ReviewAdapter extends BaseAdapter {
 
         if (convertView == null) {
             // get layout from grid_item.xml ( Defined Below )
-            view = inflater.inflate( R.layout.card_view_layout , null);
+            view = inflater.inflate( R.layout.card_view_layout, null);
         } else {
             view = convertView;
         }

@@ -1,5 +1,7 @@
 package com.example.amit.movieapp;
 
+import android.os.Parcelable;
+
 enum Selection_Types {
     Selection_Types_Popularity,
     Selection_Types_HighestRated,
@@ -8,5 +10,5 @@ enum Selection_Types {
 
 public class Settings {
     public static Selection_Types selection_types = Selection_Types.Selection_Types_Popularity;
-    public static int gridViewSelection = -1;
+    public static Parcelable parcelable = null;
 }

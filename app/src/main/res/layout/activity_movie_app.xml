@@ -17,17 +17,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
-    <GridView
-        android:id="@+id/gridView"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_numbers"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/spinner"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:paddingStart="15dp"
         android:layout_marginTop="66dp"
-        android:columnWidth="90dp"
-        android:gravity="center"
         android:numColumns="auto_fit" />
+
+
 </RelativeLayout>
 
 
