@@ -19,42 +19,20 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
-        Log.e("MovieAsyncTask", "onPostExecute");
-
-        // trigger adapter;
-//        if (context.movieAdapter != null) {
-//            Log.e("MovieAsyncTask", "Triggered Movie Adapter Num Entries:" + MovieDB.movieInfoArrayList.size());
-//            context.runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    // connect adapter to your grid view
-//                    GridView gridView = context.findViewById(R.id.gridView);
-//
-//                    Log.e("MovieAsyncTask", "Updating Movie Adapter");
-//                    context.movieAdapter.notifyDataSetChanged();
-//                    //gridView.setAdapter( context.movieAdapter);
-//                    if (Settings.gridViewSelection != -1 &&
-//                            Settings.gridViewSelection < MovieDB.movieInfoArrayList.size()) {
-//                        gridView.setSelection(Settings.gridViewSelection);
-//                        Log.e("MovieAsyncTask", "Setting Grid Position to:" + Settings.gridViewSelection);
-//                    }
-//                    Settings.gridViewSelection = -1;
-//                }
-//            });
-//        }
+        Log.d("MovieAsyncTask", "onPostExecute");
 
         if (context.movieGridAdapter != null) {
-            Log.e("MovieAsyncTask", "Triggered Movie Adapter Num Entries:" + MovieDB.movieInfoArrayList.size());
+            Log.d("MovieAsyncTask", "Triggered Movie Adapter Num Entries:" + MovieDB.movieInfoArrayList.size());
             context.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     // connect adapter to your grid view
 
-                    Log.e("MovieAsyncTask", "Updating Movie Adapter");
+                    Log.d("MovieAsyncTask", "Updating Movie Adapter");
                     context.movieGridAdapter.notifyDataSetChanged();
                     //gridView.setAdapter( context.movieAdapter);
                     if (Settings.parcelable != null) {
-                        Log.e("MovieAsyncTask", "Setting Grid Position to:" + Settings.parcelable);
+                        Log.d("MovieAsyncTask", "Setting Grid Position to:" + Settings.parcelable);
                         MovieApp.recyclerView.getLayoutManager().onRestoreInstanceState(Settings.parcelable);
                         Settings.parcelable = null;
                     }
@@ -79,10 +57,10 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
         URL url;
         try {
             if (Settings.selection_types == Selection_Types.Selection_Types_Popularity) {
-                Log.e("MovieAsyncAdapter:", "Requesting Popularity");
+                Log.d("MovieAsyncAdapter:", "Requesting Popularity");
                 url = MovieDbUtils.buildPopularURL();
             } else if (Settings.selection_types == Selection_Types.Selection_Types_HighestRated) {
-                Log.e("MovieAsyncAdapter:", "Requesting HighestRated");
+                Log.d("MovieAsyncAdapter:", "Requesting HighestRated");
                 url = MovieDbUtils.buildHighestRatedURL();
             } else {
                 url = null;
@@ -119,7 +97,7 @@ public class MovieAsyncTask extends AsyncTask<Void, Void,Void> {
                 }
             } else {
                 // url is null that means get movie info list from DB and add to list
-                Log.e("MovieAsyncTask", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
+                Log.d("MovieAsyncTask", "Number of fav entries:" + MovieDB.movieInfoArrayList.size());
                 for (int i = 0; i < MovieDB.movieInfoArrayList.size(); i++) {
                     movieInfo = MovieDB.movieInfoArrayList.get(i);
 

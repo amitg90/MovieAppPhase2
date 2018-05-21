@@ -94,7 +94,7 @@ public class Database extends SQLiteOpenHelper {
             res.moveToNext();
         }
 
-        Log.e("Database", "Read DB entries:" + MovieDB.movieInfoArrayList.size());
+        Log.d("Database", "Read DB entries:" + MovieDB.movieInfoArrayList.size());
 
         res.close();
         return;

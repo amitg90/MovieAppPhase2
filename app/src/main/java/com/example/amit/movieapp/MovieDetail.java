@@ -186,4 +186,10 @@ public class MovieDetail extends Activity {
         });
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("DETAIL_ACTIVITY_SAVED_LAYOUT_MANAGER", getLayoutManager().onSaveInstanceState());
+        Log.d("MovieApp", "!!!Saving Position:");
+    }
 }

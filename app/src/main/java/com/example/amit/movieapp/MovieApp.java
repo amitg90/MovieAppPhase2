@@ -35,7 +35,7 @@ public class MovieApp extends Activity implements CustomGridItemClick {
 
         if (savedInstanceState != null) {
             Settings.parcelable = savedInstanceState.getParcelable("SAVED_LAYOUT_MANAGER");
-            Log.e("MovieApp", "!!Setting POSITION:");
+            Log.d("MovieApp", "!!Setting POSITION:");
         }
 
         movieGridAdapter = new MovieGridAdapter(recyclerView, this, this, MovieDB.movieInfoArrayList);
@@ -45,7 +45,7 @@ public class MovieApp extends Activity implements CustomGridItemClick {
         recyclerView.setLayoutManager(gridLayoutManager);
 
 
-        Log.e("MovieApp", "!!MOVIE LIST SIZE:" + MovieDB.movieInfoArrayList.size());
+        Log.d("MovieApp", "!!MOVIE LIST SIZE:" + MovieDB.movieInfoArrayList.size());
 
         // set adapter onclick listener to display details of movie
         Spinner spinner = findViewById(R.id.spinner);
@@ -70,7 +70,7 @@ public class MovieApp extends Activity implements CustomGridItemClick {
                     MovieDB.movieInfoArrayList.clear();
 //                    movieAdapter.notifyDataSetChanged();
                 }
-                Log.e("MovieApp", "Tab Changed: Trigger asyncTask!!!");
+                Log.d("MovieApp", "Tab Changed: Trigger asyncTask!!!");
                 asyncTask = new MovieAsyncTask(MovieApp.this);
                 asyncTask.execute();
                 Log.d("MovieApp", "Creating new tasks");
@@ -95,7 +95,7 @@ public class MovieApp extends Activity implements CustomGridItemClick {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelable("SAVED_LAYOUT_MANAGER", recyclerView.getLayoutManager().onSaveInstanceState());
-        Log.e("MovieApp", "!!!Saving Position:");
+        Log.d("MovieApp", "!!!Saving Position:");
     }
 
     @Override
